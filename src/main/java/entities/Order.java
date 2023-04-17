@@ -21,4 +21,10 @@ public class Order {
 
     public Order(int id, int userId, int productId, int quantity, java.sql.Timestamp purchaseDate) {
     }
+
+    public Order(Integer userId, Integer productId, Integer quantity) {
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
 }

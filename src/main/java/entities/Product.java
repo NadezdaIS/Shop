@@ -22,4 +22,11 @@ public class Product {
 
     public Product(int id, String name, int quantity, double price, double sellingPrice, java.sql.Timestamp createdAt, java.sql.Timestamp updatedAt) {
     }
+
+    public Product(String name, int quantity, Double price, Double sellingPrice) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.sellingPrice = sellingPrice;
+    }
 }

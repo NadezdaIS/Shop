@@ -9,7 +9,6 @@ import java.sql.SQLException;
 public class MenuController {
     private final ProductController productController = new ProductController();
     private final UserController userController = new UserController();
-    private final MenuController menuController = new MenuController();
     private User user = new User();
     private Product product = new Product();
 
@@ -43,13 +42,15 @@ public class MenuController {
     private void handleAdminChoice(String userChoice) {
         switch (userChoice){
             case "1":
-                userController.createUser(user);
+                User newUser = userController.collectUserData();
+                userController.createUser(newUser);
                 break;
             case "2":
                 userController.deleteUser(user.getId());
                 break;
             case "3":
-                userController.updateUser(user);
+                User userToUpdate = userController.collectUserData();
+                userController.updateUser(userToUpdate);
                 break;
             case "4":
                 userController.viewOrdersByUser();

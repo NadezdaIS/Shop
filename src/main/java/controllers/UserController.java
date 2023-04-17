@@ -23,7 +23,15 @@ public class UserController {
     public UserController() {
         this.databaseService = new DatabaseService();
     }
+    public User collectUserData() {
+        String name = JOptionPane.showInputDialog(null, "Enter name:");
+        String email = JOptionPane.showInputDialog(null, "Enter email:");
+        String password = JOptionPane.showInputDialog(null, "Enter password:");
+        String balanceStr = JOptionPane.showInputDialog(null, "Enter balance:");
+        double balance = Double.parseDouble(balanceStr);
 
+        return new User(name, email, password, balance);
+    }
 
     public void createUser(User user) {
         try {
@@ -109,13 +117,15 @@ public class UserController {
     }
     public User getUserByEmail(String email) throws Exception {
         try {
-            String query = "SELECT * FROM owners WHERE email = ? LIMIT 1";
+            String query = "SELECT * FROM users WHERE email = ?";
             this.connection = databaseService.getConnection();
             this.statement = this.connection.prepareStatement(query);
             this.statement.setString(1, email);
             this.resultSet = this.statement.executeQuery();
             if (resultSet.next()) {
+
                 return this.createUserFromResultSet(this.resultSet);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,7 +134,7 @@ public class UserController {
         }
 
         String errorMessage = "User with email address " + email + " not found!";
-        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, errorMessage);
         throw new Exception(errorMessage);
     }
 
@@ -194,6 +204,7 @@ public class UserController {
         Double balance = Double.valueOf(JOptionPane.showInputDialog(null, "Enter your balance:"));
 
         User newUser = new User(name, email, password, balance);
+        //newUser.toString();
         createUser(newUser);
 
     }
@@ -204,7 +215,7 @@ public class UserController {
 
         try {
             User user = getUserByEmail(email);
-
+            System.out.println(user.getEmail());
             if (user != null && user.getPassword().equals(password)) {
                 JOptionPane.showMessageDialog(null, "Login successful!");
                 return user;

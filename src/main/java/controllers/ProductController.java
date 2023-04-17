@@ -19,10 +19,11 @@ public class ProductController {
     private ResultSet resultSet;
     private UserController userController = new UserController();
 
-    private ArrayList<Product> productList = getAllProducts();
+    private ArrayList<Product> productList;
 
     public ProductController() throws SQLException {
         this.databaseService = new DatabaseService();
+        this.productList = getAllProducts();
     }
 
 
@@ -112,6 +113,7 @@ public class ProductController {
                 resultSet.getTimestamp("createdAt"),
                 resultSet.getTimestamp("updatedAt")
         );
+
     }
 
 
@@ -181,7 +183,6 @@ public class ProductController {
     private ArrayList<Product> getAllProducts() throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products";
-        this.databaseService.isConnectionSuccessful();
         this.connection = this.databaseService.getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();

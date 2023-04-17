@@ -21,9 +21,17 @@ public class User {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    public User(String email) {
+        this.email = email;
+    }
+
     public User(int id, String name, String email, String password, double balance, java.sql.Timestamp createdAt, java.sql.Timestamp updatedAt) {
     }
 
     public User(String name, String email, String password, Double balance) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.balance = balance;
     }
 }
